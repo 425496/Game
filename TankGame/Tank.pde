@@ -2,6 +2,7 @@ class Tank {
   int x, w, y, h, speed, health;
   PImage iTankW, iTankA, iTankS, iTankD;
   char idir;
+  int turretCount, laserCount;
 
 
   //Constructor
@@ -17,6 +18,8 @@ class Tank {
     iTankS = loadImage("tankS.png");
     iTankD = loadImage("tankD.png");
     idir = 'w';
+    turretCount = 1;
+    laserCount = 100;
   }
 
   void display() {
@@ -46,5 +49,20 @@ class Tank {
       idir = 'd';
       x = x + speed;
     }
+  }
+
+
+  boolean intersect(Obstacle o) {
+    float distance = dist(x, y, o.x, o.y);
+    if (distance > 100) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  boolean reachedEdge() {
+    return x >= width+150 || x <= -150 || y > height + 150 || y < -150;
+    // Logic for when to return true
   }
 }
